@@ -9,10 +9,17 @@ namespace MyShellCommand.Services
     {
         private List<ICommand> commands; 
 
+    
 
         public CommandRegistry()
         {
             commands = new List<ICommand>(); 
+        }
+
+
+        public List<ICommand> GetAllCommands()
+        {
+            return commands; 
         }
 
         public void RegisterCommand(ICommand command)

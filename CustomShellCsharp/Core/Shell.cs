@@ -65,7 +65,16 @@ namespace MyShellCommand.Core
         {
             // Register commands here.
             commandRegistry.RegisterCommand(new ExitCommand(this));
-            commandRegistry.RegisterCommand(new EchoCommand()); 
+            commandRegistry.RegisterCommand(new EchoCommand());
+            commandRegistry.RegisterCommand(new HelpCommand(commandRegistry)); 
+            commandRegistry.RegisterCommand(new ClearShellCommand(this));
+            commandRegistry.RegisterCommand(new PWDCommand());
+        }
+
+
+        public void ClearShell()
+        {
+            Console.Clear(); 
         }
 
         private string GetInput()
