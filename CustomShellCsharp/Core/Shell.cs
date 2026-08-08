@@ -1,53 +1,63 @@
 ﻿using MyShellCommand.Commands;
-using MyShellCommand.Services; 
+using MyShellCommand.Services;
 using System;
+using System.IO;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 using System.Text;
+
 namespace MyShellCommand.Core
 {
     internal class Shell
     {
         private bool isRunning = true;
-        private CommandRegistry commandRegistry;    
+        private CommandRegistry commandRegistry;
 
         public Shell()
         {
+            ConsoleTextColor.Set("yellow");
+            Console.Write("Not sure what to do? Type 'help' for a list of commands.\n");
+            ConsoleTextColor.Reset();
+
             commandRegistry = new CommandRegistry();
 
             RegisterCommands(); // Register all commands
+            Directory.SetCurrentDirectory(
+                Environment.GetFolderPath(Environment.SpecialFolder.UserProfile)
+            );
         }
+
         public void Run()
         {
             while (isRunning)
             {
-                Console.Write("LeoShell> ");
+                Console.Write($"{Directory.GetCurrentDirectory()}> ");
                 string input = GetInput();
                 ProcessCommand(input);
-      
-
             }
         }
 
         public void Stop()
         {
-            Console.ForegroundColor = ConsoleColor.Green;
+            ConsoleTextColor.Set("green");
             Console.WriteLine("Exiting the shell command...");
-            Console.ResetColor(); 
+            ConsoleTextColor.Reset();
+
             isRunning = false;
         }
-        
+
         private void ProcessCommand(string input)
         {
             if (string.IsNullOrEmpty(input))
             {
-                return; 
+                return;
             }
 
             string[] parts = input.Split(' ', 2);
             string command = parts[0].ToLower();
-            string arguments = parts.Length > 1 ? parts[1] : string.Empty; 
-            ICommand? commandInstance = commandRegistry.GetCommand(command); 
+            string arguments = parts.Length > 1 ? parts[1] : string.Empty;
+
+            ICommand? commandInstance = commandRegistry.GetCommand(command);
 
             if (commandInstance != null)
             {
@@ -55,9 +65,9 @@ namespace MyShellCommand.Core
             }
             else
             {
-                Console.ForegroundColor = ConsoleColor.Red;
+                ConsoleTextColor.Set("red");
                 Console.WriteLine($"Command '{command}' not found.");
-                Console.ResetColor();
+                ConsoleTextColor.Reset();
             }
         }
 
@@ -66,15 +76,15 @@ namespace MyShellCommand.Core
             // Register commands here.
             commandRegistry.RegisterCommand(new ExitCommand(this));
             commandRegistry.RegisterCommand(new EchoCommand());
-            commandRegistry.RegisterCommand(new HelpCommand(commandRegistry)); 
+            commandRegistry.RegisterCommand(new HelpCommand(commandRegistry));
             commandRegistry.RegisterCommand(new ClearShellCommand(this));
             commandRegistry.RegisterCommand(new PWDCommand());
+            commandRegistry.RegisterCommand(new CDCommand());
         }
-
 
         public void ClearShell()
         {
-            Console.Clear(); 
+            Console.Clear();
         }
 
         private string GetInput()

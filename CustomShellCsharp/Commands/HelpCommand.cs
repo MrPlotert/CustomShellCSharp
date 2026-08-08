@@ -1,7 +1,6 @@
 ﻿using System;
 using MyShellCommand.Core;
 using System.Collections.Generic;
-using System.Text;
 using MyShellCommand.Services;
 
 namespace MyShellCommand.Commands
@@ -21,19 +20,25 @@ namespace MyShellCommand.Commands
 
         public void Execute(string arguments)
         {
-            Console.ForegroundColor = ConsoleColor.Yellow; 
-            int num = 0; 
+            ConsoleTextColor.Set("yellow");
+
+            int num = 0;
             List<ICommand> commands = commandRegistry.GetAllCommands();
+
             Console.WriteLine("{0,-10} {1,-20} {2}",
-    "Command # |", "Command Name |", "Description");
+                "Command # |", "Command Name |", "Description");
+
             Console.WriteLine(new string('-', 70));
+
             foreach (var command in commands)
             {
                 num++;
+
                 Console.WriteLine("{0,-10} {1,-20} {2}",
-                num, command.Name, command.Description);
+                    num, command.Name, command.Description);
             }
-            Console.ResetColor(); 
+
+            ConsoleTextColor.Reset();
         }
     }
 }

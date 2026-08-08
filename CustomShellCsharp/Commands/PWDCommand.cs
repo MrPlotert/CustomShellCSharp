@@ -1,8 +1,8 @@
 ﻿using System;
-using System.IO; 
+using System.IO;
+using MyShellCommand.Services; 
 using MyShellCommand.Core; 
 using System.Collections.Generic;
-using System.Text;
 
 namespace MyShellCommand.Commands
 {
@@ -16,9 +16,9 @@ namespace MyShellCommand.Commands
         {
             if (!string.IsNullOrWhiteSpace(arguments))
             {
-                Console.ForegroundColor = ConsoleColor.Red;
+                ConsoleTextColor.Set("red"); 
                 Console.WriteLine("The 'pwd' command does not accept any arguments.");
-                Console.ResetColor();
+                ConsoleTextColor.Reset();
                 return; 
             }
             Console.WriteLine(Directory.GetCurrentDirectory());

@@ -1,8 +1,6 @@
 ﻿using System;
 using MyShellCommand.Core;
-using System.Collections.Generic;
-using System.Text;
-using System.Linq.Expressions;
+using MyShellCommand.Services;
 
 namespace MyShellCommand.Commands
 {
@@ -42,9 +40,9 @@ namespace MyShellCommand.Commands
                     }
                     else
                     {
-                        Console.ForegroundColor = ConsoleColor.Red;
+                        ConsoleTextColor.Set("red");
                         Console.WriteLine($"Invalid repeat value: {parts[i + 1]}");
-                        Console.ResetColor();
+                        ConsoleTextColor.Reset();
                         return;
                     }
                 }
@@ -87,16 +85,16 @@ namespace MyShellCommand.Commands
                 // Print the message the requested number of times
                 for (int j = 0; j < repeat; j++)
                 {
-                    Console.ForegroundColor = ConsoleColor.Cyan;
+                    ConsoleTextColor.Set("cyan");
                     Console.WriteLine(message);
-                    Console.ResetColor();
+                    ConsoleTextColor.Reset();
                 }
             }
             else
             {
-                Console.ForegroundColor = ConsoleColor.Red;
+                ConsoleTextColor.Set("red");
                 Console.WriteLine("No message provided to echo.");
-                Console.ResetColor();
+                ConsoleTextColor.Reset();
             }
         }
     }
