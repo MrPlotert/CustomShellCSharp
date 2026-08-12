@@ -15,7 +15,7 @@ namespace MyShellCommand.Core
 
         public Shell()
         {
-            ConsoleTextColor.Set("yellow");
+            ConsoleTextColor.Set("YELLOW");
             Console.Write("Not sure what to do? Type 'help' for a list of commands.\n");
             ConsoleTextColor.Reset();
 
@@ -65,9 +65,28 @@ namespace MyShellCommand.Core
             }
             else
             {
-                ConsoleTextColor.Set("red");
-                Console.WriteLine($"Command '{command}' not found.");
-                ConsoleTextColor.Reset();
+                List<ICommand> commands = commandRegistry.GetAllCommands();
+                string relevantCommand = CommandSuggestion.FindClosest(command, commands); 
+
+                if (!string.IsNullOrEmpty(relevantCommand))
+                {
+                    ConsoleTextColor.Set("red");
+                    Console.WriteLine($"'{command}' is not a real command!");
+
+                    ConsoleTextColor.Set("yellow");
+                    Console.WriteLine($"Did you mean '{relevantCommand}' ?");
+
+                    ConsoleTextColor.Reset();
+                }
+                else
+                {
+                    ConsoleTextColor.Set("red");
+                    Console.WriteLine($"'{command}' is not a real command!");
+
+                    ConsoleTextColor.Reset();
+                }
+
+               
             }
         }
 
