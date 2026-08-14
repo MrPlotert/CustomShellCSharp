@@ -99,6 +99,7 @@ namespace MyShellCommand.Core
             commandRegistry.RegisterCommand(new ClearShellCommand(this));
             commandRegistry.RegisterCommand(new PWDCommand());
             commandRegistry.RegisterCommand(new CDCommand());
+            commandRegistry.RegisterCommand(new LSCommand());
         }
 
         public void ClearShell()

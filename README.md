@@ -17,6 +17,7 @@ A modular command-line shell written in **C#** and built completely from scratch
 * Built-in `clear` command
 * Built-in `pwd` command
 * Built-in `cd` command
+* Built-in `ls` command
 * Support for command options
 * Input validation and error handling
 * Command suggestion system for mistyped commands
@@ -35,6 +36,7 @@ A modular command-line shell written in **C#** and built completely from scratch
 | `clear` | Clears the console screen.                          |
 | `pwd`   | Displays the current working directory.             |
 | `cd`    | Changes the current directory.                      |
+| `ls`    | Lists files and folders in the current directory.   |
 
 ### Echo Options
 
@@ -56,6 +58,17 @@ HELLO WORLD
 HELLO WORLD
 HELLO WORLD
 ```
+
+### `ls` Details
+
+`ls` does not accept any arguments — it only lists the contents of the current directory (no browsing into other folders).
+
+For each entry it displays:
+
+* **Folders** — name and creation time.
+* **Files** — name, extension, size (formatted as B/KB/MB), and creation time.
+
+Folders and files are printed in separate, color-coded sections for readability.
 
 ---
 
@@ -102,7 +115,6 @@ This keeps color handling centralized and makes it easier to change or expand la
 ## Planned Features
 
 * Improve command suggestion accuracy
-* Directory listing
 * Command aliases
 * Command history
 * Better argument parsing
@@ -124,7 +136,8 @@ CustomShellCSharp/
 │   ├── HelpCommand.cs
 │   ├── ClearShellCommand.cs
 │   ├── PWDCommand.cs
-│   └── CDCommand.cs
+│   ├── CDCommand.cs
+│   └── LSCommand.cs
 │
 ├── Core/
 │   └── Shell.cs
