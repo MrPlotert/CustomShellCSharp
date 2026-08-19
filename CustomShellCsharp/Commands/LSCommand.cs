@@ -60,6 +60,11 @@ namespace MyShellCommand.Commands
                 }
             }
             Console.WriteLine($"Total Files: {files_amount}");
+
+
+            // Reset the Folders and files amount
+            folders_amount = 0;
+            files_amount = 0;
         }
 
         private static string FormatSize(long bytes)

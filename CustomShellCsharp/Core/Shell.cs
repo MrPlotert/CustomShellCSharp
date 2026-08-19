@@ -101,6 +101,7 @@ namespace MyShellCommand.Core
             commandRegistry.RegisterCommand(new CDCommand());
             commandRegistry.RegisterCommand(new LSCommand());
             commandRegistry.RegisterCommand(new MkdirCommand());
+            commandRegistry.RegisterCommand(new RmdirCommand());
         }
 
         public void ClearShell()
