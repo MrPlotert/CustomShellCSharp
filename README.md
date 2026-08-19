@@ -18,6 +18,8 @@ A modular command-line shell written in **C#** and built completely from scratch
 * Built-in `pwd` command
 * Built-in `cd` command
 * Built-in `ls` command
+* Built-in `mkdir` command
+* Built-in `rmdir` command
 * Support for command options
 * Input validation and error handling
 * Command suggestion system for mistyped commands
@@ -37,6 +39,8 @@ A modular command-line shell written in **C#** and built completely from scratch
 | `pwd`   | Displays the current working directory.             |
 | `cd`    | Changes the current directory.                      |
 | `ls`    | Lists files and folders in the current directory.   |
+| `mkdir` | Creates a new directory.                             |
+| `rmdir` | Removes a directory, with a native confirmation dialog. |
 
 ### Echo Options
 
@@ -69,6 +73,32 @@ For each entry it displays:
 * **Files** — name, extension, size (formatted as B/KB/MB), and creation time.
 
 Folders and files are printed in separate, color-coded sections for readability.
+
+### `mkdir` Details
+
+`mkdir` creates a new directory at the given path, resolved relative to the current directory (absolute paths are also supported, similar to `cd`).
+
+* Rejects empty/whitespace arguments.
+* Reports an error if a file or directory already exists at the target path.
+* Validates the resolved path and reports invalid characters, overly long paths, or unsupported formats.
+* Handles permission and I/O errors during creation.
+
+### `rmdir` Details
+
+`rmdir` removes a directory at the given path, resolved relative to the current directory (like `cd`), and always triggers Windows' native confirmation and progress dialogs before deleting anything.
+
+| Option | Description                                                          |
+| ------ | ---------------------------------------------------------------------|
+| `-p`   | Deletes the directory permanently instead of using the Recycle Bin.  |
+
+By default (no `-p`), the directory is sent to the Recycle Bin rather than permanently deleted.
+
+Example:
+
+```text
+rmdir OldFolder
+rmdir -p OldFolder
+```
 
 ---
 
@@ -137,7 +167,9 @@ CustomShellCSharp/
 │   ├── ClearShellCommand.cs
 │   ├── PWDCommand.cs
 │   ├── CDCommand.cs
-│   └── LSCommand.cs
+│   ├── LSCommand.cs
+│   ├── MkdirCommand.cs
+│   └── RmdirCommand.cs
 │
 ├── Core/
 │   └── Shell.cs
