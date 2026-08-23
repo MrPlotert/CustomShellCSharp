@@ -20,6 +20,7 @@ A modular command-line shell written in **C#** and built completely from scratch
 * Built-in `ls` command
 * Built-in `mkdir` command
 * Built-in `rmdir` command
+* Built-in `clearbin` command
 * Support for command options
 * Input validation and error handling
 * Command suggestion system for mistyped commands
@@ -30,17 +31,18 @@ A modular command-line shell written in **C#** and built completely from scratch
 
 ## Current Commands
 
-| Command | Description                                         |
-| ------- | --------------------------------------------------- |
-| `echo`  | Prints text to the console with optional modifiers. |
-| `exit`  | Closes the shell.                                   |
-| `help`  | Displays help information for available commands.   |
-| `clear` | Clears the console screen.                          |
-| `pwd`   | Displays the current working directory.             |
-| `cd`    | Changes the current directory.                      |
-| `ls`    | Lists files and folders in the current directory.   |
-| `mkdir` | Creates a new directory.                             |
-| `rmdir` | Removes a directory, with a native confirmation dialog. |
+| Command    | Description                                             |
+| ---------- | -------------------------------------------------------- |
+| `echo`     | Prints text to the console with optional modifiers.     |
+| `exit`     | Closes the shell.                                        |
+| `help`     | Displays help information for available commands.       |
+| `clear`    | Clears the console screen.                               |
+| `pwd`      | Displays the current working directory.                  |
+| `cd`       | Changes the current directory.                            |
+| `ls`       | Lists files and folders in the current directory.         |
+| `mkdir`    | Creates a new directory.                                  |
+| `rmdir`    | Removes a directory, with a native confirmation dialog.   |
+| `clearbin` | Clears the Recycle Bin across all fixed drives.            |
 
 ### Echo Options
 
@@ -99,6 +101,16 @@ Example:
 rmdir OldFolder
 rmdir -p OldFolder
 ```
+
+### `clearbin` Details
+
+`clearbin` empties the Recycle Bin without a confirmation prompt, using plain `System.IO` (no external DLLs or interop).
+
+* Does not accept any arguments.
+* Resolves the current user's SID and only touches that user's Recycle Bin contents.
+* Iterates every fixed, ready drive, targeting each drive's `$Recycle.Bin\<SID>` folder.
+* Deletes files and folders individually, skipping `desktop.ini`.
+* Reports a summary count of deleted and failed items; a locked or in-use item does not stop the rest of the operation.
 
 ---
 
@@ -169,7 +181,8 @@ CustomShellCSharp/
 │   ├── CDCommand.cs
 │   ├── LSCommand.cs
 │   ├── MkdirCommand.cs
-│   └── RmdirCommand.cs
+│   ├── RmdirCommand.cs
+│   └── ClearBinCommand.cs
 │
 ├── Core/
 │   └── Shell.cs
