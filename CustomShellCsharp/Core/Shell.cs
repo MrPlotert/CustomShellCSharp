@@ -103,6 +103,7 @@ namespace MyShellCommand.Core
             commandRegistry.RegisterCommand(new MkdirCommand());
             commandRegistry.RegisterCommand(new RmdirCommand());
             commandRegistry.RegisterCommand(new whoamiCommand());
+            commandRegistry.RegisterCommand(new ClearBinCommand());
         }
 
         public void ClearShell()
