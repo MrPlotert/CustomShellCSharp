@@ -105,6 +105,8 @@ namespace MyShellCommand.Core
             commandRegistry.RegisterCommand(new whoamiCommand());
             commandRegistry.RegisterCommand(new ClearBinCommand());
             commandRegistry.RegisterCommand(new SysInfoCommand());
+            commandRegistry.RegisterCommand(new DateCommand());
+            commandRegistry.RegisterCommand(new ptimezonesCommand()); 
         }
 
         public void ClearShell()
