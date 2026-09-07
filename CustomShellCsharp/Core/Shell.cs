@@ -16,7 +16,7 @@ namespace MyShellCommand.Core
         public Shell()
         {
             ConsoleTextColor.Set("YELLOW");
-            Console.Write("Not sure what to do? Type 'help' for a list of commands.\n");
+            Console.Write("Not sure what to do? Type 'help' or '?' for a list of commands.\n");
             ConsoleTextColor.Reset();
 
             commandRegistry = new CommandRegistry();
@@ -108,6 +108,7 @@ namespace MyShellCommand.Core
             commandRegistry.RegisterCommand(new DateCommand());
             commandRegistry.RegisterCommand(new ptimezonesCommand());
             commandRegistry.RegisterCommand(new CatCommand());
+            commandRegistry.RegisterCommand(new DelCommand());
         }
 
         public void ClearShell()

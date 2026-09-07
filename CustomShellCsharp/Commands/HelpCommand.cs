@@ -11,6 +11,8 @@ namespace MyShellCommand.Commands
 
         public string Description => "Displays help information for available commands";
 
+        public string[] Aliases => new string[] { "?" };
+
         private CommandRegistry commandRegistry;
 
         public HelpCommand(CommandRegistry commandRegistry)
@@ -34,8 +36,12 @@ namespace MyShellCommand.Commands
             {
                 num++;
 
+                string displayName = command.Aliases.Length > 0
+                    ? $"{command.Name} ({string.Join(", ", command.Aliases)})"
+                    : command.Name;
+
                 Console.WriteLine("{0,-10} {1,-20} {2}",
-                    num, command.Name, command.Description);
+                    num, displayName, command.Description);
             }
 
             ConsoleTextColor.Reset();

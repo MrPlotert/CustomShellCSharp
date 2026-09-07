@@ -6,7 +6,9 @@ namespace MyShellCommand.Commands
 {
     internal interface ICommand
     {
-        string Name { get; } 
+        string Name { get; }
+        string[] Aliases => Array.Empty<string>();
+
         string Description { get; }
 
         void Execute(string arguments);

@@ -1,42 +1,36 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using MyShellCommand.Commands; 
+﻿using System.Collections.Generic;
+using MyShellCommand.Commands;
 
 namespace MyShellCommand.Services
 {
     internal class CommandRegistry
     {
-        private List<ICommand> commands; 
-
-    
+        private Dictionary<string, ICommand> commands;
 
         public CommandRegistry()
         {
-            commands = new List<ICommand>(); 
+            commands = new Dictionary<string, ICommand>();
         }
-
 
         public List<ICommand> GetAllCommands()
         {
-            return commands; 
+            return new List<ICommand>(new HashSet<ICommand>(commands.Values));
         }
 
         public void RegisterCommand(ICommand command)
         {
-            commands.Add(command);
+            commands[command.Name.ToLower()] = command;
+
+            foreach (string alias in command.Aliases)
+            {
+                commands[alias.ToLower()] = command;
+            }
         }
 
         public ICommand? GetCommand(string name)
         {
-            foreach (var command in commands)
-            {
-                if (command.Name.Equals(name, StringComparison.OrdinalIgnoreCase))
-                {
-                    return command; 
-                }
-            }
-            return null;
+            commands.TryGetValue(name.ToLower(), out ICommand? command);
+            return command;
         }
     }
 }
