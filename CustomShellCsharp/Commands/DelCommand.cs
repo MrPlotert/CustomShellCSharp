@@ -10,6 +10,7 @@ namespace MyShellCommand.Commands
 
         public string Description => "Deletes a file";
 
+        public string[] Aliases => new string[] { "rm" };  
         public void Execute(string arguments)
         {
             if (string.IsNullOrWhiteSpace(arguments))
