@@ -402,4 +402,4 @@ Every new feature is an opportunity to improve both the shell and my programming
 
 ## Author
 
-Created by **@MrPlotter5557**.
+Created by **@MrPlotert** on Github.
