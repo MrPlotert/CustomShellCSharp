@@ -14,7 +14,7 @@ A modular command-line shell written in **C#** and built completely from scratch
 * Support for command aliases (multiple names per command)
 * Built-in `echo`, `exit`, `help`, `clear`, `pwd`, `cd`, `ls` commands
 * Built-in `mkdir`, `rmdir`, `del`, `rename`, `touch`, `copy`, `cut` file/directory commands
-* Built-in `cat` command for printing file contents
+* Built-in `cat`, `find`, `wc` commands for reading and inspecting files
 * Built-in `clearbin` command
 * Built-in `sysinfo` command
 * Built-in `date` command with per-country time zone lookup
@@ -47,6 +47,8 @@ A modular command-line shell written in **C#** and built completely from scratch
 | `copy`     |         | Copies a file or directory from source to destination.           |
 | `cut`      |         | Moves a file or directory from source to destination.            |
 | `cat`      |         | Prints the contents of a file.                                   |
+| `find`     |         | Searches the current directory and subfolders by name.           |
+| `wc`       |         | Counts the lines, words, and characters in a file.               |
 | `clearbin` |         | Clears the Recycle Bin across all fixed drives.                  |
 | `sysinfo`  |         | Prints system and device information.                            |
 | `date`     |         | Prints the date and time for a given country code.               |
@@ -176,6 +178,29 @@ Missing destination folders are created automatically, matching `copy`'s behavio
 * Reports an error if the file does not exist.
 * Handles permission and I/O errors while reading.
 
+### `find` Details
+
+`find` searches the current directory, and every subfolder beneath it, for files and directories whose name contains the given search term.
+
+* Matching is a case-insensitive substring match, not an exact match — the search term just needs to appear somewhere in the name.
+* Matching files are printed in green, matching directories in yellow.
+* Reports a final summary count of matches found, or a clear "no matches" message.
+* Folders that can't be accessed (e.g. permission denied) are skipped automatically rather than stopping the whole search.
+
+Example:
+
+```text
+find notes
+```
+
+### `wc` Details
+
+`wc` (word count) reports the number of lines, words, and characters in a file.
+
+* Rejects empty/whitespace arguments.
+* Reports an error if the file does not exist.
+* Handles permission and I/O errors while reading.
+
 ### `clearbin` Details
 
 `clearbin` empties the Recycle Bin without a confirmation prompt, using plain `System.IO` (no external DLLs or interop).
@@ -296,6 +321,8 @@ touch newfile.txt
 copy notes.txt to C:\Users\Leo\Desktop
 cut notes.txt to C:\Users\Leo\Desktop
 cat notes.txt
+find notes
+wc notes.txt
 clearbin
 sysinfo
 date za
@@ -338,6 +365,8 @@ CustomShellCSharp/
 │   ├── CopyCommand.cs
 │   ├── CutCommand.cs
 │   ├── CatCommand.cs
+│   ├── FindCommand.cs
+│   ├── WcCommand.cs
 │   ├── ClearBinCommand.cs
 │   ├── SysInfoCommand.cs
 │   ├── DateCommand.cs
@@ -366,6 +395,12 @@ CustomShellCSharp/
 * Visual Studio
 * Git
 * GitHub
+
+---
+
+## License
+
+This project is licensed under the MIT License — see the `LICENSE` file for details.
 
 ---
 
@@ -402,4 +437,4 @@ Every new feature is an opportunity to improve both the shell and my programming
 
 ## Author
 
-Created by **@MrPlotert** on Github.
+Created by **@MrPlotert**.

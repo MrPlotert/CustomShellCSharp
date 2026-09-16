@@ -114,7 +114,8 @@ namespace MyShellCommand.Core
             commandRegistry.RegisterCommand(new RestartShellCommand()); 
             commandRegistry.RegisterCommand(new CopyCommand());
             commandRegistry.RegisterCommand(new CutCommand());
-            commandRegistry.RegisterCommand(new FindCommand()); 
+            commandRegistry.RegisterCommand(new FindCommand());
+            commandRegistry.RegisterCommand(new WcCommand()); 
         }
 
         public void ClearShell()
