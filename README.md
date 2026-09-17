@@ -14,7 +14,7 @@ A modular command-line shell written in **C#** and built completely from scratch
 * Support for command aliases (multiple names per command)
 * Built-in `echo`, `exit`, `help`, `clear`, `pwd`, `cd`, `ls` commands
 * Built-in `mkdir`, `rmdir`, `del`, `rename`, `touch`, `copy`, `cut` file/directory commands
-* Built-in `cat`, `find`, `wc` commands for reading and inspecting files
+* Built-in `cat`, `find`, `wc`, `grep` commands for reading and inspecting files
 * Built-in `clearbin` command
 * Built-in `sysinfo` command
 * Built-in `date` command with per-country time zone lookup
@@ -49,6 +49,7 @@ A modular command-line shell written in **C#** and built completely from scratch
 | `cat`      |         | Prints the contents of a file.                                   |
 | `find`     |         | Searches the current directory and subfolders by name.           |
 | `wc`       |         | Counts the lines, words, and characters in a file.               |
+| `grep`     |         | Searches inside a file's contents for a term, with highlighting. |
 | `clearbin` |         | Clears the Recycle Bin across all fixed drives.                  |
 | `sysinfo`  |         | Prints system and device information.                            |
 | `date`     |         | Prints the date and time for a given country code.               |
@@ -201,6 +202,28 @@ find notes
 * Reports an error if the file does not exist.
 * Handles permission and I/O errors while reading.
 
+### `grep` Details
+
+`grep` searches inside a file's contents for a given term, printing every matching line along with its line number.
+
+Usage:
+
+```text
+grep <term> <file>
+```
+
+* Matching is case-insensitive.
+* The file path can be relative to the current directory (works naturally with `cd`) or a full absolute path.
+* Every occurrence of the search term within a matching line is highlighted in yellow, with the rest of the line in green, preserving the original casing from the file.
+* Reports a "no matches" message if the term isn't found anywhere in the file.
+* Handles permission and I/O errors while reading.
+
+Example:
+
+```text
+grep error log.txt
+```
+
 ### `clearbin` Details
 
 `clearbin` empties the Recycle Bin without a confirmation prompt, using plain `System.IO` (no external DLLs or interop).
@@ -323,6 +346,7 @@ cut notes.txt to C:\Users\Leo\Desktop
 cat notes.txt
 find notes
 wc notes.txt
+grep error log.txt
 clearbin
 sysinfo
 date za
@@ -367,6 +391,7 @@ CustomShellCSharp/
 │   ├── CatCommand.cs
 │   ├── FindCommand.cs
 │   ├── WcCommand.cs
+│   ├── GrepCommand.cs
 │   ├── ClearBinCommand.cs
 │   ├── SysInfoCommand.cs
 │   ├── DateCommand.cs
@@ -437,4 +462,4 @@ Every new feature is an opportunity to improve both the shell and my programming
 
 ## Author
 
-Created by **@MrPlotert**.
+Created by **@MrPlotert**
