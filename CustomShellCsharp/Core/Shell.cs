@@ -97,7 +97,6 @@ namespace MyShellCommand.Core
             commandRegistry.RegisterCommand(new EchoCommand());
             commandRegistry.RegisterCommand(new HelpCommand(commandRegistry));
             commandRegistry.RegisterCommand(new ClearShellCommand(this));
-            commandRegistry.RegisterCommand(new PWDCommand());
             commandRegistry.RegisterCommand(new CDCommand());
             commandRegistry.RegisterCommand(new LSCommand());
             commandRegistry.RegisterCommand(new MkdirCommand());
@@ -116,7 +115,8 @@ namespace MyShellCommand.Core
             commandRegistry.RegisterCommand(new CutCommand());
             commandRegistry.RegisterCommand(new FindCommand());
             commandRegistry.RegisterCommand(new WcCommand());
-            commandRegistry.RegisterCommand(new GrepCommand()); 
+            commandRegistry.RegisterCommand(new GrepCommand());
+            commandRegistry.RegisterCommand(new envCommand());
         }
 
         public void ClearShell()
