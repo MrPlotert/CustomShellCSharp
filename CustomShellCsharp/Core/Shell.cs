@@ -12,7 +12,7 @@ namespace MyShellCommand.Core
     {
         private bool isRunning = true;
         private CommandRegistry commandRegistry;
-
+        private List<string> commandHistory = new List<string>(); 
         public Shell()
         {
             ConsoleTextColor.Set("YELLOW");
@@ -26,6 +26,24 @@ namespace MyShellCommand.Core
                 Environment.GetFolderPath(Environment.SpecialFolder.UserProfile)
             );
         }
+
+        public void PrintHistory()
+        {
+            int currentNum = 0;
+            ConsoleTextColor.Set("yellow");
+            Console.WriteLine(new string('-', 70));
+            Console.WriteLine("#\tNAME");
+            ConsoleTextColor.Reset(); 
+            foreach (var hist in commandHistory)
+            {
+                currentNum++;
+                Console.WriteLine($"{currentNum}.\t {hist}");
+            }
+            ConsoleTextColor.Set("yellow");
+            Console.WriteLine(new string('-', 70));
+            ConsoleTextColor.Reset(); 
+        }
+
 
         public void Run()
         {
@@ -61,6 +79,11 @@ namespace MyShellCommand.Core
 
             if (commandInstance != null)
             {
+                if (commandHistory.Count > 20)
+                {
+                    commandHistory.Clear(); 
+                }
+                commandHistory.Add(input); 
                 commandInstance.Execute(arguments);
             }
             else
@@ -117,6 +140,7 @@ namespace MyShellCommand.Core
             commandRegistry.RegisterCommand(new WcCommand());
             commandRegistry.RegisterCommand(new GrepCommand());
             commandRegistry.RegisterCommand(new envCommand());
+            commandRegistry.RegisterCommand(new HistoryCommand(this)); 
         }
 
         public void ClearShell()
