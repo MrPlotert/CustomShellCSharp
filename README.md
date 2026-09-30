@@ -15,6 +15,7 @@ A modular command-line shell written in **C#** and built completely from scratch
 * Built-in `echo`, `exit`, `help`, `clear`, `pwd`, `cd`, `ls` commands
 * Built-in `mkdir`, `rmdir`, `del`, `rename`, `touch`, `copy`, `cut` file/directory commands
 * Built-in `cat`, `find`, `wc`, `grep` commands for reading and inspecting files
+* Built-in `history` command tracking recently used commands
 * Built-in `clearbin` command
 * Built-in `sysinfo` command
 * Built-in `date` command with per-country time zone lookup
@@ -50,6 +51,7 @@ A modular command-line shell written in **C#** and built completely from scratch
 | `find`     |         | Searches the current directory and subfolders by name.           |
 | `wc`       |         | Counts the lines, words, and characters in a file.               |
 | `grep`     |         | Searches inside a file's contents for a term, with highlighting. |
+| `history`  |         | Prints the last 20 commands typed, including itself.             |
 | `clearbin` |         | Clears the Recycle Bin across all fixed drives.                  |
 | `sysinfo`  |         | Prints system and device information.                            |
 | `date`     |         | Prints the date and time for a given country code.               |
@@ -224,6 +226,13 @@ Example:
 grep error log.txt
 ```
 
+### `history` Details
+
+`history` prints the last 20 commands typed into the shell, including the `history` command invocation itself.
+
+* Does not accept any arguments.
+* Command tracking happens centrally in `Shell`, so every command typed is recorded as it's processed.
+
 ### `clearbin` Details
 
 `clearbin` empties the Recycle Bin without a confirmation prompt, using plain `System.IO` (no external DLLs or interop).
@@ -347,6 +356,7 @@ cat notes.txt
 find notes
 wc notes.txt
 grep error log.txt
+history
 clearbin
 sysinfo
 date za
@@ -359,7 +369,7 @@ matrix
 ## Planned Features
 
 * Improve command suggestion accuracy
-* Command history
+* Command recall from history (e.g. re-running a past command)
 * Better argument parsing
 * Configuration support
 * Additional built-in commands
@@ -392,6 +402,7 @@ CustomShellCSharp/
 │   ├── FindCommand.cs
 │   ├── WcCommand.cs
 │   ├── GrepCommand.cs
+│   ├── HistoryCommand.cs
 │   ├── ClearBinCommand.cs
 │   ├── SysInfoCommand.cs
 │   ├── DateCommand.cs
@@ -462,4 +473,4 @@ Every new feature is an opportunity to improve both the shell and my programming
 
 ## Author
 
-Created by **@MrPlotert**
+Created by **@MrPlotert**.
